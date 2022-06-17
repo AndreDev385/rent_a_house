@@ -1,7 +1,7 @@
 from flask import Flask
 
 from rent_a_house.api import room
-from rent_a_house.flask_settings import DevConfig
+from rent_a_house.flask_settings import DevConfig, TestConfig
 
 
 def create_app(config_object=DevConfig):
