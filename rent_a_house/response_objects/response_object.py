@@ -1,7 +1,3 @@
-from ctypes import Union
-from sre_constants import SUCCESS
-from typing import Optional
-
 from rent_a_house.request_objects.room_list_request_objects import (
     InvalidRequestObject,
 )

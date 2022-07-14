@@ -1,8 +1,9 @@
+from rent_a_house.adapters.room_repository import RoomRepository
 from rent_a_house.response_objects import response_object as res
 
 
 class RoomListUseCase:
-    def __init__(self, repo):
+    def __init__(self, repo: RoomRepository):
         self.repo = repo
 
     def execute(self, request_object):

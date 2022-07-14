@@ -1,7 +1,9 @@
 import json
+
 from flask import Blueprint, request
 from flask.wrappers import Response
-from rent_a_house.repositories import memrepo as mr
+
+from rent_a_house.repositories import mongorepo as mr
 from rent_a_house.use_cases import room_list_use_case as uc
 from rent_a_house.serializers import room_json_serializer as ser
 from rent_a_house.request_objects import room_list_request_objects as req
@@ -9,7 +11,7 @@ from rent_a_house.response_objects import response_object as res
 
 
 blueprint = Blueprint("room", __name__)
-room1 = {
+"""room1 = {
     "code": "f853578c-fc0f-4e65-81b8-566c5dffa35a",
     "size": 215,
     "price": 39,
@@ -29,6 +31,14 @@ room3 = {
     "price": 60,
     "longitude": 0.27891577,
     "latitude": 51.45994069,
+}"""
+
+
+connection_data = {
+    "dbname": "rentomaticdb",
+    "user": "root",
+    "password": "rentomaticdb",
+    "host": "localhost",
 }
 
 STATUS_CODES = {
@@ -48,7 +58,7 @@ def room():
         if arg.startswith("filter_"):
             qrystr_params["filters"][arg.replace("filter_", "")] = values
     request_object = req.RoomListRequestObject.from_dict(qrystr_params)
-    repo = mr.MemRepo([room1, room2, room3])
+    repo = mr.MongoRepo(connection_data)
     use_case = uc.RoomListUseCase(repo)
     response = use_case.execute(request_object)
     return Response(

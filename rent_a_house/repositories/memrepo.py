@@ -1,8 +1,9 @@
 from typing import List
 from rent_a_house.domain import room as r
+from rent_a_house.adapters.room_repository import RoomRepository
 
 
-class MemRepo:
+class MemRepo(RoomRepository):
     def __init__(self, data):
         self.data = data
 
